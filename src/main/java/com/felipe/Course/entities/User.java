@@ -1,6 +1,10 @@
 package com.felipe.Course.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -14,6 +18,9 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private String password;
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
     public User() {
     }
@@ -73,6 +80,10 @@ public class User implements Serializable {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
