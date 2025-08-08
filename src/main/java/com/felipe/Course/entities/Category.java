@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
 import jakarta.persistence.Table;
 
 @Entity
@@ -16,14 +19,13 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long id;
     private String name;
-
+    @JsonIgnore
+    @jakarta.persistence.ManyToMany(mappedBy = "categories")
     private Set<Product> products = new HashSet<>();
 
     public Set<Product> getProducts() {
         return products;
     }
-
-    
 
     public Category() {
     }
